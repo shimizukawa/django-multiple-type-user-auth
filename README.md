@@ -42,12 +42,14 @@ $ USER_MODEL=admin python apps/manage.py createsuperuser  # for admin user
 $ honcho start
 ```
 
-This command invokes 2 django application process for:
+This command invokes 2 django application and 1 dispatcher process as:
 
 * Front: http://localhost:8000/
 * Admin: http://localhost:8001/admin/
+* Dispatcher: http://localhost:8080/
 
-At first, you must create "Customer" and "Supporter" users in Django Admin with using created super user account.
+At first, you must create "Customer" and "Supporter" users in Django Admin
+http://localhost:8080/admin/ with using created super user account.
 
 ## Behaviors
 

@@ -42,12 +42,13 @@ $ USER_MODEL=admin python apps/manage.py createsuperuser  # for admin user
 $ honcho start
 ```
 
-このコマンドで2つのDjangouプロセスが起動します。それぞれ以下のアドレスです:
+このコマンドで2つのDjangouプロセスと、1つのルーターが起動します。それぞれ以下のアドレスです:
 
 * フロント側サイト: http://localhost:8000/
 * Django管理サイト: http://localhost:8001/admin/
+* 上記2つの手前でURL振り分けるRouter: http://localhost:8080/
 
-最初に、先ほど作成したスーパーユーザーアカウントでDjango管理サイトにログインして、
+最初に、先ほど作成したスーパーユーザーアカウントでDjango管理サイト http://localhost:8080/admin/ にログインして、
 "Customer" と "Supporter" のアカウントを作成してください。
 
 ## 動作
