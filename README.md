@@ -1,21 +1,39 @@
 # django-multiple-type-user-auth
 PoC django multiple type user authentication 
 
+## What I want to do
+
+* I want to completely separate user model of front-side users and Django Admin users.
+* Both authentication for user types must use Django's standard authentication mechanism.
+* Front-side users have multiple user type, so I want to manage them separately on the Django Admin.
+
+## Constraints
+
+* Django's authentication mechanism cannot handle multiple user types in a project (only one user table can be used for authentication)
+
+  * "Django doesn't have multiple users" -- [django best approach for creating multiple type users](https://stackoverflow.com/a/25842236)
+  * "First of all, you cannot make multiple authentication user base for a project." -- [python - Django 1.8, Multiple Custom User Types - Stack Overflow](https://stackoverflow.com/a/31103029)
+
 ## Concept
 
-* Two user models as: "Admin User" and "Front User".
-* "Admin User" can only login "Django Admin".
-* "Front User" can only login "Front site".
-* "Front User" have two kind of concrete user types as "Customer" and "Supporter".
-* "Customer" can access customer's views.
-* "Supporter" can access supporter's views.
+* Invoke server processes with separated [settings.AUTH_USER_MODEL](https://docs.djangoproject.com/en/2.2/topics/auth/customizing/#substituting-a-custom-user-model) to specify the different user model to be used for authentication on the front-side and the Django Admin.
+* Front-side user types are treated as separate models by [Multi Table Inheritance](https://docs.djangoproject.com/en/2.2/topics/db/models/#multi-table-inheritance), which inherits the authentication model.
+
+## Spec
+
+* Two user models for authentication is: `User` and `FrontUser`.
+* `User` can only login "Django Admin".
+* `FrontUser` can only login "Front site".
+* `FrontUser` have two kind of concrete user types as `CustomerUser` and `SupporterUser`.
+* `CustomerUser` can access customer's views.
+* `SupporterUser` can access supporter's views.
 
 ## Setup
 
 ```
 $ pip install -r requirements.txt
 $ python apps/manage.py migrate
-$ python apps/manage.py createsuperuser  # for admin user
+$ USER_MODEL=admin python apps/manage.py createsuperuser  # for admin user
 ```
 
 ## Invocation
@@ -24,7 +42,7 @@ $ python apps/manage.py createsuperuser  # for admin user
 $ honcho start
 ```
 
-That invoke 2 django application process for:
+This command invokes 2 django application process for:
 
 * Front: http://localhost:8000/
 * Admin: http://localhost:8001/admin/
@@ -41,7 +59,7 @@ At first, you must create "Customer" and "Supporter" users in Django Admin with 
 
 ## Schemas
 
-"Admin User" table (django default):
+`User` model table (django default):
 ```
 CREATE TABLE "auth_user"
 (
@@ -59,7 +77,7 @@ CREATE TABLE "auth_user"
 );
 ```
 
-"Front User" table (base model for customer and supporter):
+`FrontUser` model table (Base user model for front side):
 ```
 CREATE TABLE "accounts_frontuser"
 (
@@ -71,7 +89,7 @@ CREATE TABLE "accounts_frontuser"
 );
 ```
 
-"Customer User" table (multi-table inheritance):
+`CustomerUser` model table (multi-table inheritance):
 ```
 CREATE TABLE "accounts_customeruser"
 (
@@ -80,7 +98,7 @@ CREATE TABLE "accounts_customeruser"
 );
 ```
 
-"Customer User" table (multi-table inheritance):
+`SupporterUser` model table (multi-table inheritance):
 ```
 CREATE TABLE "accounts_supporteruser"
 (
