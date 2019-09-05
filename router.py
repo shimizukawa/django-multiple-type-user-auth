@@ -81,5 +81,5 @@ def router2(**paths):
     return front.route(**paths)
 
 
-bottle.run(host='localhost', port=PORT, debug=True)
+bottle.run(host='localhost', port=int(PORT), debug=True)
 
