@@ -107,3 +107,9 @@ CREATE TABLE "accounts_supporteruser"
     "organization" varchar(64) NOT NULL
 );
 ```
+
+# 参考文献
+
+* "カスタムの User モデルを置き換える" -- [Django の認証方法のカスタマイズ | Django ドキュメント | Django](https://docs.djangoproject.com/ja/2.2/topics/auth/customizing/#substituting-a-custom-user-model)
+* [Django における認証処理実装パターン - c-bata web](https://nwpct1.hatenablog.com/entry/django-auth-patterns)
+* [プロダクト開発してわかったDjangoの深〜いパーミッション管理の話 @ PyconJP2017](https://www.slideshare.net/hirokiky/django-pyconjp2017)
