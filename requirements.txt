@@ -1,5 +1,5 @@
 bottle==0.12.17
-Django==2.2.5
+Django==2.2.8
 django-environ==0.4.5
 honcho==1.0.1
 pytz==2019.2
