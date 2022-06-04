@@ -1,6 +1,6 @@
 asgiref==3.2.7
 bottle==0.12.20
-Django==3.1.13
+Django==3.1.14
 django-environ==0.4.5
 honcho==1.0.1
 pytz==2019.3
